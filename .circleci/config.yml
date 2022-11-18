@@ -6,9 +6,7 @@ jobs:
   working_directory: /go/src/github.com/HeerlijkeHeer/invoicer-chapter2
   docker:
    - image: circleci/golang:1.10
-     auth:
-         username: HeerlijkeHeer
-         password: $DOCKER_PASS
+
   steps:
    - checkout
    - setup_remote_docker
@@ -39,6 +37,7 @@ jobs:
    - deploy:
        command: |
          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+           docker login -u ${DOCKER_USER} -p ${DOCKER_PASS};
            go install --ldflags '-extldflags "-static"' \
            github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
            mkdir bin;
