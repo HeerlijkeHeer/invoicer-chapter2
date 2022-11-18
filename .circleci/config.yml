@@ -6,6 +6,9 @@ jobs:
   working_directory: /go/src/github.com/HeerlijkeHeer/invoicer-chapter2
   docker:
    - image: circleci/golang:1.10
+     auth:
+         username: HeerlijkeHeer
+         password: $DOCKER_PASS
   steps:
    - checkout
    - setup_remote_docker
